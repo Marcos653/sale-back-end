@@ -2,7 +2,6 @@ package com.sale.view.model;
 
 import javax.validation.constraints.NotNull;
 
-import com.sale.Model.Seller;
 
 public class SaleRequest {
 

@@ -45,6 +45,7 @@ public class SaleController {
             .map(s -> mapper.map(s, SaleResponse.class))
             .collect(Collectors.toList());
 
+            
         return new ResponseEntity<>(saleResponses, HttpStatus.OK);
     }
 

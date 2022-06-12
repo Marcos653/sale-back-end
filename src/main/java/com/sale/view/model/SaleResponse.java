@@ -3,14 +3,13 @@ package com.sale.view.model;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sale.Model.Seller;
 
 public class SaleResponse {
 
     private Long id;
     private Double price;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created_at;
+    private LocalDateTime date;
     private Long seller_id;
 
     
@@ -39,12 +38,12 @@ public class SaleResponse {
         this.price = price;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getdate() {
+        return date;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setdate(LocalDateTime date) {
+        this.date = date;
     }
     
     

@@ -1,6 +1,5 @@
 package com.sale.Model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "sales")
@@ -22,8 +22,9 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "created_at")
-    private LocalDateTime created_at = LocalDateTime.now();
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @Column(name = "date")
+    private LocalDateTime date = LocalDateTime.now();
     @Column(name = "price")
     private Double price;
     @Column(name = "id_seller")
@@ -41,9 +42,9 @@ public class Sale {
     }
 
 
-    public Sale(Long id, LocalDateTime created_at, Double price, Seller seller) {
+    public Sale(Long id, LocalDateTime date, Double price, Seller seller) {
         this.id = id;
-        this.created_at = created_at;
+        this.date = date;
         this.price = price;
         this.seller = seller;
     }
@@ -52,9 +53,9 @@ public class Sale {
 
     
 
-    public Sale(Long id, LocalDateTime created_at, Double price, Long seller_id, Seller seller) {
+    public Sale(Long id, LocalDateTime date, Double price, Long seller_id, Seller seller) {
         this.id = id;
-        this.created_at = created_at;
+        this.date = date;
         this.price = price;
         this.seller_id = seller_id;
         this.seller = seller;
@@ -79,12 +80,12 @@ public class Sale {
         this.id = id;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getdate() {
+        return date;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setdate(LocalDateTime date) {
+        this.date = date;
     }
 
     public Double getPrice() {

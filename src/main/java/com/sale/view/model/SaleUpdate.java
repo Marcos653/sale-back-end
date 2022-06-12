@@ -1,6 +1,5 @@
 package com.sale.view.model;
 
-import com.sale.Model.Seller;
 
 public class SaleUpdate {
 

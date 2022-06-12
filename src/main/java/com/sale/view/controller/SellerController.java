@@ -43,7 +43,7 @@ public class SellerController {
         ModelMapper mapper = new ModelMapper();
         List<SellerResponse> sellerResponses = sellerDTOs.stream()
             .map(s -> mapper.map(s, SellerResponse.class))
-            .collect(Collectors.toList());
+            .collect(Collectors.toList());  
 
         return new ResponseEntity<>(sellerResponses, HttpStatus.OK);
     }
