@@ -26,6 +26,9 @@ public class Sale {
     @Column(name = "price")
     private Double price;
 
+    // @Column(name = "seller_name")
+    // private String seller_name;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name="seller_id", nullable=false)

@@ -64,6 +64,7 @@ public class SaleServiceImpl implements SaleService {
     private SaleDTO salveSale(SaleDTO sale) {
         Optional<Seller> seller = sellerRepository.findById(sale.getSeller().getId());
         sale.setSeller(seller.get());
+        System.out.println(sale.getPrice());
         ModelMapper mapper = new ModelMapper();
         Sale sale_entity = mapper.map(sale, Sale.class);
         sale_entity = saleRepository.save(sale_entity);
@@ -77,7 +78,7 @@ public class SaleServiceImpl implements SaleService {
 
         if(sale.isPresent()){
 
-            if(price != null){
+            if(price != 0){
                 sale.get().setPrice(price);;
                 saleRepository.save(sale.get());
             }

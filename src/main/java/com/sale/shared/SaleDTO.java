@@ -8,7 +8,7 @@ import com.sale.Model.Seller;
 public class SaleDTO {
     
     private Long id;
-    private Integer sale_amount;
+    private Double price;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at = LocalDateTime.now();
 
@@ -22,12 +22,12 @@ public class SaleDTO {
         this.id = id;
     }
 
-    public Integer getSale_amount() {
-        return sale_amount;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setSale_amount(Integer sale_amount) {
-        this.sale_amount = sale_amount;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public LocalDateTime getCreated_at() {
