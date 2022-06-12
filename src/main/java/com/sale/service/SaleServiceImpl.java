@@ -62,9 +62,9 @@ public class SaleServiceImpl implements SaleService {
     }
 
     private SaleDTO salveSale(SaleDTO sale) {
-        Optional<Seller> seller = sellerRepository.findById(sale.getSeller().getId());
+        Optional<Seller> seller = sellerRepository.findById(sale.getSeller_id());
         sale.setSeller(seller.get());
-        System.out.println(sale.getPrice());
+        sale.setSeller_id(sale.getSeller_id());
         ModelMapper mapper = new ModelMapper();
         Sale sale_entity = mapper.map(sale, Sale.class);
         sale_entity = saleRepository.save(sale_entity);

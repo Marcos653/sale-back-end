@@ -1,7 +1,6 @@
 package com.sale.shared;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,7 +12,7 @@ public class SellerDTO {
     private String name;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at = LocalDateTime.now();
-    private List<Sale> sales = new ArrayList<>();
+    private List<Sale> sales;
 
 
     public Long getId() {

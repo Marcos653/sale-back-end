@@ -25,7 +25,8 @@ public class Sale {
     private LocalDate created_at = LocalDate.now();
     @Column(name = "price")
     private Double price;
-
+    @Column(name = "id_seller")
+    private Long seller_id;
     // @Column(name = "seller_name")
     // private String seller_name;
 
@@ -45,6 +46,29 @@ public class Sale {
         this.price = price;
         this.seller = seller;
     }
+
+    
+
+    
+
+    public Sale(Long id, LocalDate created_at, Double price, Long seller_id, Seller seller) {
+        this.id = id;
+        this.created_at = created_at;
+        this.price = price;
+        this.seller_id = seller_id;
+        this.seller = seller;
+    }
+
+
+    public Long getSeller_id() {
+        return seller_id;
+    }
+
+
+    public void setSeller_id(Long seller_id) {
+        this.seller_id = seller_id;
+    }
+
 
     public Long getId() {
         return id;

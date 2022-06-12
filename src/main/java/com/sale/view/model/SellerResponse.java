@@ -1,7 +1,6 @@
 package com.sale.view.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,7 +12,7 @@ public class SellerResponse {
     private String name;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at = LocalDateTime.now();
-    private List<Sale> sale = new ArrayList<>();
+    private List<Sale> sale;
 
     
 

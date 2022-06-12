@@ -11,8 +11,19 @@ public class SaleDTO {
     private Double price;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at = LocalDateTime.now();
+    private Long seller_id;
 
     private Seller seller;
+
+    
+
+    public Long getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(Long seller_id) {
+        this.seller_id = seller_id;
+    }
 
     public Long getId() {
         return id;

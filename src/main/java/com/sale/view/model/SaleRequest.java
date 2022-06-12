@@ -9,9 +9,20 @@ public class SaleRequest {
     @NotNull
     private Double price;
     @NotNull
+    private Long seller_id;
     private Seller seller;
 
+    
 
+    
+
+
+    public Long getSeller_id() {
+        return seller_id;
+    }
+    public void setSeller_id(Long seller_id) {
+        this.seller_id = seller_id;
+    }
     public Double getPrice() {
         return price;
     }
