@@ -1,8 +1,6 @@
 package com.sale.service;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,7 +14,6 @@ import com.sale.Model.Seller;
 import com.sale.repository.SaleRepository;
 import com.sale.repository.SellerRepository;
 import com.sale.shared.SaleDTO;
-import com.sale.shared.SellerDTO;
 
 
 

@@ -75,7 +75,7 @@ public class SaleController {
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateEnd){
         List<Sale> sales = service.findAllDataBetween(dateStart, dateEnd);
         Period period = Period.between(dateStart, dateEnd);
-        Integer days = period.getDays();
+        float days = period.getDays();
         List<SellerDTO> sellerDTOs;
 
         sellerDTOs = sales.stream()
@@ -83,12 +83,13 @@ public class SaleController {
             .entrySet()
             .stream()
             .map(e -> {
-                Integer totalValue = 0;
+                float totalValue = 0;
                 float average = 0;
                 for(Sale sale : e.getValue()){
                     totalValue++;
                 }
-                average = (float) (totalValue / days);
+                System.out.println(days + " ddddddddddddddddddd " +  totalValue);
+                average = (totalValue / days);
                 return new SellerDTO(e.getKey(), totalValue, average);
             }).collect(Collectors.toList());
 

@@ -11,7 +11,7 @@ public class SellerDTO {
     private String name;
     private List<Sale> sale;
     private Seller seller;
-    private Integer total_sales;
+    private float total_sales;
     private float average_daily;
     
 
@@ -21,13 +21,13 @@ public class SellerDTO {
 
 
 
-    public SellerDTO(Seller seller, Integer total_sales, float average_daily) {
+    public SellerDTO(Seller seller, float total_sales, float average_daily) {
         this.seller = seller;
         this.total_sales = total_sales;
         this.average_daily = average_daily;
     }
 
-    public SellerDTO(Seller seller, Integer total_sales) {
+    public SellerDTO(Seller seller, float total_sales) {
         this.seller = seller;
         this.total_sales = total_sales;
     }
@@ -82,13 +82,13 @@ public class SellerDTO {
 
 
 
-    public Integer getTotal_sales() {
+    public float getTotal_sales() {
         return total_sales;
     }
 
 
 
-    public void setTotal_sales(Integer total_sales) {
+    public void setTotal_sales(float total_sales) {
         this.total_sales = total_sales;
     }
 
