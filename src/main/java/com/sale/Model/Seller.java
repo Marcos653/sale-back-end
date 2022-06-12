@@ -1,6 +1,7 @@
 package com.sale.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Seller {
 
     @OneToMany(mappedBy = "sellers")
     @JsonManagedReference
-    private List<Sale> sale;
+    private List<Sale> sale = new ArrayList<>();;
 
     
 
