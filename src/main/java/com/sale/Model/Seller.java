@@ -27,7 +27,7 @@ public class Seller {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "sellers")
+    @OneToMany(mappedBy = "seller")
     @JsonManagedReference
     private List<Sale> sale = new ArrayList<>();;
 
