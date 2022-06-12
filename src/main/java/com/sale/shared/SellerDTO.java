@@ -12,7 +12,7 @@ public class SellerDTO {
     private String name;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at = LocalDateTime.now();
-    private List<Sale> sales;
+    private List<Sale> sale;
 
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class SellerDTO {
         this.name = name;
     }
 
-    public List<Sale> getSales() {
-        return sales;
+    public List<Sale> getSale() {
+        return sale;
     }
 
-    public void setSales(List<Sale> sales) {
-        this.sales = sales;
+    public void setSale(List<Sale> sale) {
+        this.sale = sale;
     }
   
     
