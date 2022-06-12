@@ -1,6 +1,6 @@
 package com.sale.shared;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sale.Model.Seller;
@@ -9,8 +9,8 @@ public class SaleDTO {
     
     private Long id;
     private Double price;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
-    private LocalDateTime date = LocalDateTime.now();
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate date = LocalDate.now();
     private Long seller_id;
 
     private Seller seller;
@@ -44,11 +44,11 @@ public class SaleDTO {
         this.price = price;
     }
 
-    public LocalDateTime getdate() {
+    public LocalDate getdate() {
         return date;
     }
 
-    public void setdate(LocalDateTime date) {
+    public void setdate(LocalDate date) {
         this.date = date;
     }
 

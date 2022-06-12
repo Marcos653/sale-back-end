@@ -1,6 +1,6 @@
 package com.sale.view.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -8,8 +8,8 @@ public class SaleResponse {
 
     private Long id;
     private Double price;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate date;
     private Long seller_id;
 
     
@@ -38,11 +38,11 @@ public class SaleResponse {
         this.price = price;
     }
 
-    public LocalDateTime getdate() {
+    public LocalDate getdate() {
         return date;
     }
 
-    public void setdate(LocalDateTime date) {
+    public void setdate(LocalDate date) {
         this.date = date;
     }
     

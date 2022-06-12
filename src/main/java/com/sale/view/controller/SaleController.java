@@ -1,13 +1,18 @@
 package com.sale.view.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,10 +22,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sale.Model.Sale;
 import com.sale.service.SaleService;
 import com.sale.shared.SaleDTO;
+import com.sale.shared.SellerDTO;
 import com.sale.view.model.SaleRequest;
 import com.sale.view.model.SaleResponse;
 import com.sale.view.model.SaleUpdate;
@@ -59,6 +67,34 @@ public class SaleController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    @GetMapping(value = "/filter-date")
+    public Stream<SellerDTO> test(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
+                                            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateEnd){
+        List<Sale> sales = service.findAllDataBetween(dateStart, dateEnd);
+        Period period = Period.between(dateStart, dateEnd);
+        Integer days = period.getDays();
+        List<SellerDTO> sellerDTOs;
+
+        sellerDTOs = sales.stream()
+            .collect(Collectors.groupingBy(Sale::getSeller))
+            .entrySet()
+            .stream()
+            .map(e -> {
+                Integer totalValue = 0;
+                float average = 0;
+                for(Sale sale : e.getValue()){
+                    totalValue++;
+                }
+                average = (float) (totalValue / days);
+                return new SellerDTO(e.getKey(), totalValue, average);
+            }).collect(Collectors.toList());
+
+        return sellerDTOs.stream()
+            .sorted(Comparator.comparing(SellerDTO::getTotal_sales).reversed());
+        
     }
 
     @PostMapping

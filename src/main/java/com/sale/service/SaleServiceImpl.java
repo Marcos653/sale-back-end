@@ -1,5 +1,8 @@
 package com.sale.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +16,9 @@ import com.sale.Model.Seller;
 import com.sale.repository.SaleRepository;
 import com.sale.repository.SellerRepository;
 import com.sale.shared.SaleDTO;
+import com.sale.shared.SellerDTO;
+
+
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -95,5 +101,14 @@ public class SaleServiceImpl implements SaleService {
         return null;
         
     }
+
+    @Override
+    public List<Sale> findAllDataBetween(LocalDate dateStart, LocalDate dateEnd) {
+        List<Sale> sales = saleRepository.findAllByDateBetween(dateStart, dateEnd);
+
+        return sales.stream()
+            .map(s -> new ModelMapper().map(s, Sale.class))
+            .collect(Collectors.toList());
+    }    
     
 }

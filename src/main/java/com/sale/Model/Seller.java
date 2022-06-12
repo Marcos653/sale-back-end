@@ -1,6 +1,5 @@
 package com.sale.Model;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;

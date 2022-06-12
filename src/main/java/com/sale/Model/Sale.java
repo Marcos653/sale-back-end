@@ -1,6 +1,6 @@
 package com.sale.Model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +22,9 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "date")
-    private LocalDateTime date = LocalDateTime.now();
+    private LocalDate date = LocalDate.now();
     @Column(name = "price")
     private Double price;
     @Column(name = "id_seller")
@@ -42,7 +42,7 @@ public class Sale {
     }
 
 
-    public Sale(Long id, LocalDateTime date, Double price, Seller seller) {
+    public Sale(Long id, LocalDate date, Double price, Seller seller) {
         this.id = id;
         this.date = date;
         this.price = price;
@@ -53,7 +53,7 @@ public class Sale {
 
     
 
-    public Sale(Long id, LocalDateTime date, Double price, Long seller_id, Seller seller) {
+    public Sale(Long id, LocalDate date, Double price, Long seller_id, Seller seller) {
         this.id = id;
         this.date = date;
         this.price = price;
@@ -80,11 +80,11 @@ public class Sale {
         this.id = id;
     }
 
-    public LocalDateTime getdate() {
+    public LocalDate getdate() {
         return date;
     }
 
-    public void setdate(LocalDateTime date) {
+    public void setdate(LocalDate date) {
         this.date = date;
     }
 
