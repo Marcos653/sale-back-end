@@ -1,6 +1,7 @@
 package com.sale.Model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Sale {
     @Column(name = "id")
     private Long id;
     @Column(name = "created_at")
-    private LocalDate created_at = LocalDate.now();
+    private LocalDateTime created_at = LocalDateTime.now();
     @Column(name = "price")
     private Double price;
     @Column(name = "id_seller")
@@ -40,7 +41,7 @@ public class Sale {
     }
 
 
-    public Sale(Long id, LocalDate created_at, Double price, Seller seller) {
+    public Sale(Long id, LocalDateTime created_at, Double price, Seller seller) {
         this.id = id;
         this.created_at = created_at;
         this.price = price;
@@ -51,7 +52,7 @@ public class Sale {
 
     
 
-    public Sale(Long id, LocalDate created_at, Double price, Long seller_id, Seller seller) {
+    public Sale(Long id, LocalDateTime created_at, Double price, Long seller_id, Seller seller) {
         this.id = id;
         this.created_at = created_at;
         this.price = price;
@@ -78,11 +79,11 @@ public class Sale {
         this.id = id;
     }
 
-    public LocalDate getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDate created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 

@@ -11,7 +11,7 @@ public class SellerResponse {
     private Long id;
     private String name;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime created_at;
     private List<Sale> sale;
 
     

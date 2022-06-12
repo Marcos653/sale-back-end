@@ -10,10 +10,6 @@ public class SaleRequest {
     private Double price;
     @NotNull
     private Long seller_id;
-    private Seller seller;
-
-    
-
     
 
 
@@ -28,12 +24,6 @@ public class SaleRequest {
     }
     public void setPrice(Double price) {
         this.price = price;
-    }
-    public Seller getSeller() {
-        return seller;
-    }
-    public void setSeller(Seller seller) {
-        this.seller = seller;
     }
 
     

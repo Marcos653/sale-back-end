@@ -3,6 +3,7 @@ package com.sale.shared;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sale.Model.Sale;
 import com.sale.Model.Seller;
 
 public class SaleDTO {
@@ -10,10 +11,13 @@ public class SaleDTO {
     private Long id;
     private Double price;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime created_at;
     private Long seller_id;
 
     private Seller seller;
+
+
+    
 
     
 

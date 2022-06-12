@@ -10,10 +10,8 @@ public class SaleResponse {
     private Long id;
     private Double price;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime created_at;
     private Long seller_id;
-
-    private Seller seller;
 
     
 
@@ -48,15 +46,6 @@ public class SaleResponse {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
     
     
 }
