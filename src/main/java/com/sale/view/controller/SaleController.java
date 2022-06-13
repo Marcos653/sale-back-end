@@ -113,15 +113,9 @@ public class SaleController {
         SaleDTO saleDTO = mapper
             .map(newSale, SaleDTO.class);
 
-        // if(newSale.getPrice() != null){
-        //     saleDTO = service.partialUpdateSale(id, newSale.getPrice(), newSale.getSeller()); 
-        // }
-
-
-        // if(newSale.getSeller() != null){
-        //     saleDTO = service.partialUpdateSale(id, newSale.getPrice(), newSale.getSeller());
-            
-        // }
+        if(newSale.getPrice() != null){
+            saleDTO = service.partialUpdateSale(id, newSale.getPrice()); 
+        }
         
         return new ResponseEntity<>(mapper.map(saleDTO, SaleUpdate.class), HttpStatus.OK);
     }

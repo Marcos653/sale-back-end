@@ -74,8 +74,18 @@ public class SaleServiceImpl implements SaleService {
         return mapper.map(sale_entity, SaleDTO.class);
     }
 
+
     @Override
-    public SaleDTO partialUpdateSale(Long id, Double price, Seller seller) {
+    public List<Sale> findAllDataBetween(LocalDate dateStart, LocalDate dateEnd) {
+        List<Sale> sales = saleRepository.findAllByDateBetween(dateStart, dateEnd);
+
+        return sales.stream()
+            .map(s -> new ModelMapper().map(s, Sale.class))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public SaleDTO partialUpdateSale(Long id, Double price) {
         ModelMapper mapper = new ModelMapper();
         Optional<Sale> sale = saleRepository.findById(id);
 
@@ -86,26 +96,11 @@ public class SaleServiceImpl implements SaleService {
                 saleRepository.save(sale.get());
             }
 
-            if(seller != null){
-                sale.get().setSeller(seller);
-                saleRepository.save(sale.get());
-            }
-
             return mapper.map(sale.get(), SaleDTO.class);
 
         }
 
         return null;
-        
-    }
-
-    @Override
-    public List<Sale> findAllDataBetween(LocalDate dateStart, LocalDate dateEnd) {
-        List<Sale> sales = saleRepository.findAllByDateBetween(dateStart, dateEnd);
-
-        return sales.stream()
-            .map(s -> new ModelMapper().map(s, Sale.class))
-            .collect(Collectors.toList());
-    }    
+    } 
     
 }

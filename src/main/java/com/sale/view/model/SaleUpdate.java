@@ -12,5 +12,4 @@ public class SaleUpdate {
     public void setPrice(Double price) {
         this.price = price;
     }
-    
 }
