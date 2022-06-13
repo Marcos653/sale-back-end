@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,14 +73,17 @@ public class SaleController {
 
 
     @GetMapping(value = "/filter-date")
-    public Stream<SellerFilter> test(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
+    public ResponseEntity<Stream<SellerFilter>> FilterDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateEnd){
+        if (dateStart.isAfter(dateEnd) || dateStart.equals(dateEnd)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Sale> sales = service.findAllDataBetween(dateStart, dateEnd);
         Period period = Period.between(dateStart, dateEnd);
         float days = period.getDays();
-        List<SellerFilter> SellerFilters;
+        List<SellerFilter> sellerFilters;
 
-        SellerFilters = sales.stream()
+        sellerFilters = sales.stream()
             .collect(Collectors.groupingBy(Sale::getSeller))
             .entrySet()
             .stream()
@@ -92,36 +97,52 @@ public class SaleController {
                 return new SellerFilter(e.getKey(), totalValue, average);
             }).collect(Collectors.toList());
 
-        return SellerFilters.stream()
+        Stream<SellerFilter> sorted = sellerFilters.stream()
             .sorted(Comparator.comparing(SellerFilter::getTotal_sales).reversed());
+
+        return ResponseEntity.ok(sorted);  
         
     }
 
     @PostMapping
     public ResponseEntity<SaleRequest> createSale(@RequestBody @Valid SaleRequest sale){
-        ModelMapper mapper = new ModelMapper();
-        SaleDTO saleDTO = mapper
-            .map(sale, SaleDTO.class);
-        saleDTO = service.register(saleDTO);
-        return new ResponseEntity<>(mapper.map(saleDTO, SaleRequest.class), HttpStatus.CREATED);
+        try{
+            ModelMapper mapper = new ModelMapper();
+            SaleDTO saleDTO = mapper
+                .map(sale, SaleDTO.class); 
+            saleDTO = service.register(saleDTO);
+            return new ResponseEntity<>(mapper.map(saleDTO, SaleRequest.class), HttpStatus.CREATED);        
+        }catch (NoSuchElementException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         }
+
     }
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<SaleUpdate> updateSale(@RequestBody @Valid SaleUpdate newSale, @PathVariable Long id){
-        ModelMapper mapper = new ModelMapper();
-        SaleDTO saleDTO = mapper
-            .map(newSale, SaleDTO.class);
-
-        if(newSale.getPrice() != null){
-            saleDTO = service.partialUpdateSale(id, newSale.getPrice()); 
+        try{
+            ModelMapper mapper = new ModelMapper();
+            SaleDTO saleDTO = mapper
+                .map(newSale, SaleDTO.class);
+    
+            if(newSale.getPrice() != null){
+                saleDTO = service.partialUpdateSale(id, newSale.getPrice()); 
+            }
+            
+            return new ResponseEntity<>(mapper.map(saleDTO, SaleUpdate.class), HttpStatus.OK);
+        }catch(IllegalArgumentException ex){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        
-        return new ResponseEntity<>(mapper.map(saleDTO, SaleUpdate.class), HttpStatus.OK);
+
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteSale(@PathVariable Long id){
-        service.deleteSale(id);
+        try {
+            service.deleteSale(id);;
+         } catch (EmptyResultDataAccessException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

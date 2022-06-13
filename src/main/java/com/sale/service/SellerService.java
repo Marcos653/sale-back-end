@@ -3,7 +3,6 @@ package com.sale.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.sale.Model.Sale;
 import com.sale.shared.SellerDTO;
 
 public interface SellerService {

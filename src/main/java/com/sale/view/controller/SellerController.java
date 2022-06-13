@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -71,21 +72,29 @@ public class SellerController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<SellerUpdate> updateSeller(@RequestBody @Valid SellerUpdate newSeller, @PathVariable Long id){
-        ModelMapper mapper = new ModelMapper();
-        SellerDTO sellerDTO = mapper
-            .map(newSeller, SellerDTO.class);
-
-        if(newSeller.getName() != null){
-            sellerDTO = service.partialUpdateSeller(id, newSeller.getName()); 
+        try{
+            ModelMapper mapper = new ModelMapper();
+            SellerDTO sellerDTO = mapper
+                .map(newSeller, SellerDTO.class);
+    
+            if(newSeller.getName() != null){
+                sellerDTO = service.partialUpdateSeller(id, newSeller.getName()); 
+            }
+    
+            
+            return new ResponseEntity<>(mapper.map(sellerDTO, SellerUpdate.class), HttpStatus.OK);
+        }catch(IllegalArgumentException ex){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        
-        return new ResponseEntity<>(mapper.map(sellerDTO, SellerUpdate.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteSeller(@PathVariable Long id){
-        service.deleteSeller(id);
+        try {
+            service.deleteSeller(id);;
+         } catch (EmptyResultDataAccessException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
