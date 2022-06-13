@@ -20,7 +20,7 @@ public class SellerTest {
     private SellerRepository sellerRepository;
   
   
-    @Test
+    @Test()
     public void registerSeller() {
       Seller seller = new Seller(1L, "Baker uncle", null);
       Seller saveSeller = sellerRepository.save(seller);
@@ -35,16 +35,17 @@ public class SellerTest {
   
     @Test
     public void getAllSeller() {
-      Seller firstSeller= new Seller(1L, "Banker", null);
-      Seller secondSeller = new Seller(2L, "Butcher", null);
-      Seller thirdSeller = new Seller(3L, "Lawyer", null);
+      Seller firstSeller= new Seller(13L, "Banker", null);
+      Seller secondSeller = new Seller(14L, "Butcher", null);
+      Seller thirdSeller = new Seller(15L, "Lawyer", null);
   
       sellerRepository.save(firstSeller);
       sellerRepository.save(secondSeller);
       sellerRepository.save(thirdSeller);
       List<Seller> sellers = sellerRepository.findAll();
   
-      Assert.assertEquals(sellers.size(), 12);
+      //Há 12 vendedores cadastrado por padrão no banco SQL
+      Assert.assertEquals(sellers.size(), 15);
     }
 
 }
