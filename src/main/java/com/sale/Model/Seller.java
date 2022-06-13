@@ -26,7 +26,7 @@ public class Seller {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Sale> sale;
 
