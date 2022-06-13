@@ -64,7 +64,7 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public SellerDTO partialUpdateSeller(Long id, String name, List<Sale> sale) {
+    public SellerDTO partialUpdateSeller(Long id, String name) {
         ModelMapper mapper = new ModelMapper();
         Optional<Seller> seller = repo.findById(id);
 
@@ -74,12 +74,7 @@ public class SellerServiceImpl implements SellerService {
                 seller.get().setName(name);
                 repo.save(seller.get());
             }
-
-            if(sale != null){
-                seller.get().setSale(sale);
-                repo.save(seller.get());
-            }
-
+            
             return mapper.map(seller.get(), SellerDTO.class);
 
         }

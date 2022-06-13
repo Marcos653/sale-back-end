@@ -76,13 +76,9 @@ public class SellerController {
             .map(newSeller, SellerDTO.class);
 
         if(newSeller.getName() != null){
-            sellerDTO = service.partialUpdateSeller(id, newSeller.getName(), newSeller.getSale()); 
+            sellerDTO = service.partialUpdateSeller(id, newSeller.getName()); 
         }
 
-        if(newSeller.getSale() != null){
-            sellerDTO = service.partialUpdateSeller(id, newSeller.getName(), newSeller.getSale());
-            
-        }
         
         return new ResponseEntity<>(mapper.map(sellerDTO, SellerUpdate.class), HttpStatus.OK);
     }

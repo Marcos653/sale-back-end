@@ -12,5 +12,5 @@ public interface SellerService {
     Optional<SellerDTO> getById(Long id);
     void deleteSeller(Long id);
     SellerDTO updateSeller(Long id, SellerDTO newSeller);
-    SellerDTO partialUpdateSeller(Long id, String name, List<Sale> sale);
+    SellerDTO partialUpdateSeller(Long id, String name);
 }
