@@ -86,9 +86,8 @@ public class SaleController {
                 float totalValue = 0;
                 float average = 0;
                 for(Sale sale : e.getValue()){
-                    totalValue++;
+                    totalValue = e.getValue().size();
                 }
-                System.out.println(days + " ddddddddddddddddddd " +  totalValue);
                 average = (totalValue / days);
                 return new SellerFilter(e.getKey(), totalValue, average);
             }).collect(Collectors.toList());
