@@ -11,8 +11,17 @@ public class SaleResponse {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
     private Long seller_id;
+    private String seller_name;
 
     
+
+    public String getSeller_name() {
+        return seller_name;
+    }
+
+    public void setSeller_name(String seller_name) {
+        this.seller_name = seller_name;
+    }
 
     public Long getSeller_id() {
         return seller_id;

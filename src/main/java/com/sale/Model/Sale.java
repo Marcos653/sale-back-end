@@ -29,8 +29,8 @@ public class Sale {
     private Double price;
     @Column(name = "id_seller")
     private Long seller_id;
-    // @Column(name = "seller_name")
-    // private String seller_name;
+    @Column(name = "seller_name")
+    private String seller_name;
 
     @ManyToOne
     @JsonBackReference
@@ -59,6 +59,16 @@ public class Sale {
         this.price = price;
         this.seller_id = seller_id;
         this.seller = seller;
+    }
+
+
+    public String getSeller_name() {
+        return seller_name;
+    }
+
+
+    public void setSeller_name(String seller_name) {
+        this.seller_name = seller.getName();
     }
 
 

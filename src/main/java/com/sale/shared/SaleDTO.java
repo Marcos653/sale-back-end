@@ -12,6 +12,7 @@ public class SaleDTO {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date = LocalDate.now();
     private Long seller_id;
+    private String seller_name;
 
     private Seller seller;
 
@@ -19,6 +20,14 @@ public class SaleDTO {
     
 
     
+
+    public String getSeller_name() {
+        return seller_name;
+    }
+
+    public void setSeller_name(String seller_name) {
+        this.seller_name = seller_name;
+    }
 
     public Long getSeller_id() {
         return seller_id;

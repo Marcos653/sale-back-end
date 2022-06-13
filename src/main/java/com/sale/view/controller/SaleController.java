@@ -28,10 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sale.Model.Sale;
 import com.sale.service.SaleService;
 import com.sale.shared.SaleDTO;
-import com.sale.shared.SellerDTO;
 import com.sale.view.model.SaleRequest;
 import com.sale.view.model.SaleResponse;
 import com.sale.view.model.SaleUpdate;
+import com.sale.view.model.SellerFilter;
 
 @RestController
 @RequestMapping("api/sale")
@@ -71,14 +71,14 @@ public class SaleController {
 
 
     @GetMapping(value = "/filter-date")
-    public Stream<SellerDTO> test(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
+    public Stream<SellerFilter> test(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateStart,
                                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateEnd){
         List<Sale> sales = service.findAllDataBetween(dateStart, dateEnd);
         Period period = Period.between(dateStart, dateEnd);
         float days = period.getDays();
-        List<SellerDTO> sellerDTOs;
+        List<SellerFilter> SellerFilters;
 
-        sellerDTOs = sales.stream()
+        SellerFilters = sales.stream()
             .collect(Collectors.groupingBy(Sale::getSeller))
             .entrySet()
             .stream()
@@ -90,11 +90,11 @@ public class SaleController {
                 }
                 System.out.println(days + " ddddddddddddddddddd " +  totalValue);
                 average = (totalValue / days);
-                return new SellerDTO(e.getKey(), totalValue, average);
+                return new SellerFilter(e.getKey(), totalValue, average);
             }).collect(Collectors.toList());
 
-        return sellerDTOs.stream()
-            .sorted(Comparator.comparing(SellerDTO::getTotal_sales).reversed());
+        return SellerFilters.stream()
+            .sorted(Comparator.comparing(SellerFilter::getTotal_sales).reversed());
         
     }
 
